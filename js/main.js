@@ -82,6 +82,31 @@ async function init() {
     });
   }
 
+  const actionBtn = document.getElementById('action-btn');
+  if (actionBtn) {
+    const clearAction = () => { game.input._touchActionPressed = false; };
+    actionBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      game.input._touchActionPressed = true;
+      game.input._touchActionConsumed = false;
+    });
+    actionBtn.addEventListener('touchend', clearAction);
+    actionBtn.addEventListener('touchcancel', clearAction);
+  }
+
+  const backBtn = document.getElementById('back-btn');
+  if (backBtn) {
+    const clearBack = () => { game.input._touchBackPressed = false; };
+    backBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      game.input._touchBackPressed = true;
+    });
+    backBtn.addEventListener('touchend', clearBack);
+    backBtn.addEventListener('touchcancel', clearBack);
+  }
+
   bar.style.width = '100%';
   text.textContent = 'Listo!';
 

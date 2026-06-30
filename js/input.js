@@ -73,16 +73,12 @@ export class InputManager {
     };
 
     canvas.addEventListener('touchstart', (e) => {
-      e.preventDefault();
       for (const t of e.changedTouches) {
         const p = toLogical(t.clientX, t.clientY);
 
         this.mousePos = { x: p.x, y: p.y };
 
-        if (p.x < 80 && p.y < 80) {
-          this._touchBackPressed = true;
-          this.mouseClick = null;
-        } else if (p.x < ANCHO * 0.6 && p.y > ALTO * 0.3) {
+        if (p.x < ANCHO * 0.6 && p.y > ALTO * 0.3) {
           this.mouseClick = { x: p.x, y: p.y, button: 0 };
           this.joystickActive = true;
           this._joystickTouchId = t.identifier;
@@ -90,15 +86,11 @@ export class InputManager {
           this._joystickCenterY = p.y;
           this.joystickX = 0;
           this.joystickY = 0;
-        } else if (p.x > ANCHO * 0.7 && p.y > ALTO * 0.6) {
-          this._touchActionPressed = true;
-          this._touchActionConsumed = false;
-          this.mouseClick = null;
         } else {
           this.mouseClick = { x: p.x, y: p.y, button: 0 };
         }
       }
-    }, { passive: false });
+    }, { passive: true });
 
     canvas.addEventListener('touchmove', (e) => {
       e.preventDefault();
@@ -152,8 +144,7 @@ export class InputManager {
   }
 
   clearTouchAction() {
-    this._touchActionPressed = false;
-    this._touchActionConsumed = false;
+    // Managed by DOM button touch events
   }
 
   setTouchBack() {
