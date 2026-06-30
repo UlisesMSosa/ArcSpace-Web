@@ -20,7 +20,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
 
 #touch-controls { position: fixed; inset: 0; pointer-events: none; z-index: 10; display: none; touch-action: none; }
 #touch-controls.show { display: block; }
-#joystick-area { position: absolute; bottom: 40px; left: 40px; width: 140px; height: 140px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.25); touch-action: none; pointer-events: none; }
+#joystick-area { position: absolute; bottom: 40px; left: 40px; width: 140px; height: 140px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.25); touch-action: none; pointer-events: auto; }
 #joystick-knob { position: absolute; width: 54px; height: 54px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.2) 100%); border: 2px solid rgba(255,255,255,0.4); transform: translate(-50%, -50%); left: 50%; top: 50%; transition: none; pointer-events: none; }
 #action-btn { position: absolute; bottom: 40px; right: 40px; width: 80px; height: 80px; border-radius: 50%; background: rgba(255,215,0,0.2); border: 3px solid rgba(255,215,0,0.5); touch-action: none; pointer-events: auto; transition: background 0.15s, border-color 0.15s; }
 #action-btn::after { content: '📷'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 32px; color: rgba(255,215,0,0.8); }

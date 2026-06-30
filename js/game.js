@@ -326,6 +326,7 @@ export class Game {
       }
     }
     document.getElementById('action-btn').classList.toggle('pressed', !!this.input._touchActionPressed);
+    document.getElementById('back-btn').classList.toggle('pressed', !!this.input._touchBackPressed);
   }
 
   _syncNameInput() {

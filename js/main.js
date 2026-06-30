@@ -107,6 +107,56 @@ async function init() {
     backBtn.addEventListener('touchcancel', clearBack);
   }
 
+  const joystickArea = document.getElementById('joystick-area');
+  if (joystickArea) {
+    let joyTouchId = null;
+    joystickArea.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const t = e.changedTouches[0];
+      joyTouchId = t.identifier;
+      game.input.joystickActive = true;
+      game.input.joystickX = 0;
+      game.input.joystickY = 0;
+    }, { passive: false });
+    joystickArea.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+      const rect = joystickArea.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      for (const t of e.changedTouches) {
+        if (t.identifier === joyTouchId) {
+          const dx = t.clientX - cx;
+          const dy = t.clientY - cy;
+          const maxDist = 70;
+          const dist = Math.hypot(dx, dy);
+          if (dist > maxDist) {
+            game.input.joystickX = dx / dist;
+            game.input.joystickY = dy / dist;
+          } else if (dist > 5) {
+            game.input.joystickX = dx / maxDist;
+            game.input.joystickY = dy / maxDist;
+          } else {
+            game.input.joystickX = 0;
+            game.input.joystickY = 0;
+          }
+        }
+      }
+    }, { passive: false });
+    const endJoy = (e) => {
+      for (const t of e.changedTouches) {
+        if (t.identifier === joyTouchId) {
+          joyTouchId = null;
+          game.input.joystickActive = false;
+          game.input.joystickX = 0;
+          game.input.joystickY = 0;
+        }
+      }
+    };
+    joystickArea.addEventListener('touchend', endJoy);
+    joystickArea.addEventListener('touchcancel', endJoy);
+  }
+
   bar.style.width = '100%';
   text.textContent = 'Listo!';
 

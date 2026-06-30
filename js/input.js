@@ -18,9 +18,6 @@ export class InputManager {
     this.joystickX = 0;
     this.joystickY = 0;
     this.joystickActive = false;
-    this._joystickTouchId = null;
-    this._joystickCenterX = 0;
-    this._joystickCenterY = 0;
     this._touchActionPressed = false;
     this._touchActionConsumed = false;
     this._touchBackPressed = false;
@@ -75,64 +72,17 @@ export class InputManager {
     canvas.addEventListener('touchstart', (e) => {
       for (const t of e.changedTouches) {
         const p = toLogical(t.clientX, t.clientY);
-
         this.mousePos = { x: p.x, y: p.y };
-
-        if (p.x < ANCHO * 0.6 && p.y > ALTO * 0.3) {
-          this.mouseClick = { x: p.x, y: p.y, button: 0 };
-          this.joystickActive = true;
-          this._joystickTouchId = t.identifier;
-          this._joystickCenterX = p.x;
-          this._joystickCenterY = p.y;
-          this.joystickX = 0;
-          this.joystickY = 0;
-        } else {
-          this.mouseClick = { x: p.x, y: p.y, button: 0 };
-        }
+        this.mouseClick = { x: p.x, y: p.y, button: 0 };
       }
     }, { passive: true });
 
     canvas.addEventListener('touchmove', (e) => {
       e.preventDefault();
-      for (const t of e.changedTouches) {
-        const p = toLogical(t.clientX, t.clientY);
-
-        if (t.identifier === this._joystickTouchId) {
-          const dx = p.x - this._joystickCenterX;
-          const dy = p.y - this._joystickCenterY;
-          const maxDist = 70;
-          const dist = Math.hypot(dx, dy);
-          if (dist > maxDist) {
-            this.joystickX = dx / dist;
-            this.joystickY = dy / dist;
-          } else if (dist > 5) {
-            this.joystickX = dx / maxDist;
-            this.joystickY = dy / maxDist;
-          } else {
-            this.joystickX = 0;
-            this.joystickY = 0;
-          }
-        }
-      }
     }, { passive: false });
 
-    canvas.addEventListener('touchend', (e) => {
-      for (const t of e.changedTouches) {
-        if (t.identifier === this._joystickTouchId) {
-          this.joystickActive = false;
-          this.joystickX = 0;
-          this.joystickY = 0;
-          this._joystickTouchId = null;
-        }
-      }
-    }, { passive: true });
-
-    canvas.addEventListener('touchcancel', (e) => {
-      this.joystickActive = false;
-      this.joystickX = 0;
-      this.joystickY = 0;
-      this._joystickTouchId = null;
-    }, { passive: true });
+    canvas.addEventListener('touchend', () => {}, { passive: true });
+    canvas.addEventListener('touchcancel', () => {}, { passive: true });
   }
 
   consumeTouchAction() {
