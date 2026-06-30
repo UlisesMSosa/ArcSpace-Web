@@ -105,7 +105,7 @@ export class MenuState {
       const x = startX + i * (charW + gap) + charW / 2;
       ctx.fillStyle = `rgba(150, 50, 200, ${80 + 175 * pulse})`;
       ctx.fillText('_', x, centerY);
-      if (i < g.nombreJugador.length) {
+      if (i < g.nombreJugador.length && !g.input.isTouchDevice) {
         ctx.fillStyle = '#ffd700';
         ctx.fillText(g.nombreJugador[i], x, centerY - 6);
       }
