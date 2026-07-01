@@ -184,16 +184,16 @@ export class MenuState {
     g._botonPuntajesRect = this._drawBtn(ctx, 'PUNTAJES', floatY, 20, g.input.mousePos, g.ticks, '#63cfc2', '#000', 'left');
 
     ctx.save();
-    ctx.font = '20px Silkscreen';
+    ctx.font = '40px Silkscreen';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillStyle = '#ffd700';
     const creadoTexto = 'Creado por Ulises Sosa';
-    ctx.fillText(creadoTexto, ANCHO / 2, ALTO - 20);
+    ctx.fillText(creadoTexto, ANCHO / 2, ALTO - 35);
     const creadoW = ctx.measureText(creadoTexto).width;
     const flagImg = g.assets.getImg('nacional');
     if (flagImg) {
-      ctx.drawImage(flagImg, ANCHO / 2 + creadoW / 2 + 8, ALTO - 36, 32, 32);
+      ctx.drawImage(flagImg, ANCHO / 2 + creadoW / 2 + 12, ALTO - 67, 64, 64);
     }
     ctx.restore();
   }
