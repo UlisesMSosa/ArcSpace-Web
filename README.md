@@ -24,6 +24,8 @@ Esta versión mantiene la jugabilidad principal, pero fue modificada para funcio
 
 * Ajustes en la resolución y el renderizado para adaptarse al entorno web.
 * Mejor integración con HTML y CSS.
+* Añade una interfaz nueva y mejorada para ejecutarse en dispositivos moviles.
+* Adapta los controles para dar una experiencia de juego fluida en movil.
 
 
 ### ☁️ Despliegue
