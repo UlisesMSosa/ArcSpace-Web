@@ -9,7 +9,7 @@ export class FelicitacionState {
     this._subSurf = null;
     this._haloSurf = null;
     this._panelSurf = null;
-    this._panelW = 760;
+    this._panelW = 860;
     this._panelH = 200;
     this._starSurf = null;
   }

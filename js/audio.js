@@ -7,6 +7,7 @@ export class AudioManager {
     this._initialized = false;
     this._musicSource = null;
     this._musicGain = null;
+    this._musicGen = 0;
   }
 
   init() {
@@ -63,11 +64,15 @@ export class AudioManager {
     if (this.ctx.state === 'suspended') {
       try { await this.ctx.resume(); } catch (e) {}
     }
+    const myGen = ++this._musicGen;
     this.stopMusic();
     try {
       const resp = await fetch(url);
+      if (myGen !== this._musicGen) return;
       const arrayBuffer = await resp.arrayBuffer();
+      if (myGen !== this._musicGen) return;
       const audioBuffer = await this.ctx.decodeAudioData(arrayBuffer);
+      if (myGen !== this._musicGen) return;
       const source = this.ctx.createBufferSource();
       source.buffer = audioBuffer;
       source.loop = true;

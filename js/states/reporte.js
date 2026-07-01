@@ -162,7 +162,7 @@ export class ReporteState {
       }
     }
 
-    if (input.justPressed('KeyM')) {
+    if (input.justPressed('KeyM') || input.justPressed('Escape')) {
       const puntActual = g.puntuacionTotalPartida + g.puntuacion;
       if (puntActual > g.sesionMejorPuntuacion) {
         g.sesionMejorPuntuacion = puntActual;
